@@ -33,11 +33,12 @@
             this.labelPassword = new System.Windows.Forms.Label();
             this.textBoxUsuario = new System.Windows.Forms.TextBox();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
+            this.labelError = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(106, 128);
+            this.buttonLogin.Location = new System.Drawing.Point(109, 156);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(117, 29);
             this.buttonLogin.TabIndex = 3;
@@ -48,7 +49,7 @@
             // labelUsuario
             // 
             this.labelUsuario.AutoSize = true;
-            this.labelUsuario.Location = new System.Drawing.Point(29, 30);
+            this.labelUsuario.Location = new System.Drawing.Point(46, 30);
             this.labelUsuario.Name = "labelUsuario";
             this.labelUsuario.Size = new System.Drawing.Size(47, 15);
             this.labelUsuario.TabIndex = 1;
@@ -57,7 +58,7 @@
             // labelPassword
             // 
             this.labelPassword.AutoSize = true;
-            this.labelPassword.Location = new System.Drawing.Point(29, 80);
+            this.labelPassword.Location = new System.Drawing.Point(46, 83);
             this.labelPassword.Name = "labelPassword";
             this.labelPassword.Size = new System.Drawing.Size(57, 15);
             this.labelPassword.TabIndex = 2;
@@ -65,24 +66,36 @@
             // 
             // textBoxUsuario
             // 
-            this.textBoxUsuario.Location = new System.Drawing.Point(96, 27);
+            this.textBoxUsuario.Location = new System.Drawing.Point(109, 30);
             this.textBoxUsuario.Name = "textBoxUsuario";
             this.textBoxUsuario.Size = new System.Drawing.Size(142, 23);
             this.textBoxUsuario.TabIndex = 1;
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(96, 80);
+            this.textBoxPassword.Location = new System.Drawing.Point(109, 80);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(142, 23);
             this.textBoxPassword.TabIndex = 2;
             this.textBoxPassword.UseSystemPasswordChar = true;
+            // 
+            // labelError
+            // 
+            this.labelError.AutoSize = true;
+            this.labelError.ForeColor = System.Drawing.Color.Red;
+            this.labelError.Location = new System.Drawing.Point(86, 127);
+            this.labelError.Name = "labelError";
+            this.labelError.Size = new System.Drawing.Size(180, 15);
+            this.labelError.TabIndex = 4;
+            this.labelError.Text = "Usuario o contraseña incorrectos";
+            this.labelError.Visible = false;
             // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(300, 214);
+            this.Controls.Add(this.labelError);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxUsuario);
             this.Controls.Add(this.labelPassword);
@@ -103,6 +116,7 @@
         private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.TextBox textBoxUsuario;
         private System.Windows.Forms.TextBox textBoxPassword;
+        private System.Windows.Forms.Label labelError;
     }
 }
 

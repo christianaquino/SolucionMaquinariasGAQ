@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace SolucionMaquinariasGAQ
 {
-    static class Program
+    static class Login_Form
     {
         /// <summary>
         ///  The main entry point for the application.

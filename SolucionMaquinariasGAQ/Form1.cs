@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CapaNegocio;
 
 namespace SolucionMaquinariasGAQ
 {
     public partial class FormLogin : Form
     {
+        MaquinariasGAQ_Negocio negocio = new MaquinariasGAQ_Negocio();
         public FormLogin()
         {
             InitializeComponent();
@@ -25,6 +27,15 @@ namespace SolucionMaquinariasGAQ
         private void button1_Click(object sender, EventArgs e)
         {
 
+            try
+            {
+                negocio.TryConnection();
+                MessageBox.Show("Conexi{on correcta!!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
