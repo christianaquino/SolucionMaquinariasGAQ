@@ -1,8 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <UserSecretsId>a74b8cc9-2aa6-45aa-99d9-7aab7cfac165</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySqlConnector" Version="1.0.1" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="MySql.Data">
