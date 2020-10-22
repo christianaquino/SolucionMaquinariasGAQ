@@ -8,10 +8,10 @@ namespace CapaNegocio
 {
     public class MaquinariasGAQ_Negocio
     {
-        public void TryConnection() {
+        public void Login(String user, String password) {
             BD database = new CapaDatos.BD();
             
-            database.connect();
+            database.Login(user, password);
             
         }
         

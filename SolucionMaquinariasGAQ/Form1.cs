@@ -29,8 +29,8 @@ namespace SolucionMaquinariasGAQ
 
             try
             {
-                negocio.TryConnection();
-                MessageBox.Show("Conexi{on correcta!!");
+                negocio.Login(textBoxUsuario.Text, textBoxPassword.Text);
+                MessageBox.Show("Usuario logueado con exito");
             }
             catch (Exception ex)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
@@ -7,17 +8,72 @@ namespace CapaDatos
 {
     public class BD
     {
-        
-        public void connect() {
-            string connstring = "server=localhost;uid=root;pwd=*****;database=maquinarias_gaq";
-            MySqlConnection conn = new MySqlConnection(connstring);
+        static readonly string connstring = @"server=127.0.0.1;uid=root;pwd=******;database=maquinarias_gaq";
+        static readonly MySqlConnection conn = new MySqlConnection(connstring);
+        private void Connect() {
             conn.Open();
-            //conn.ConnectionString = connstring;
-            //conn.Open();
         }
 
-        public void close() {
-            //conn.Close();
+        private void Close() {
+            conn.Close();
+        }
+
+        public void Login(String user, String password)
+        {
+            Connect();
+            var cmd = conn.CreateCommand();
+            cmd.CommandText = "SELECT * FROM usuario WHERE UsuarioNombre=@user AND NOT UsuarioCuentaBloqueada";
+            cmd.Parameters.AddWithValue("@user", user);
+            cmd.Parameters.AddWithValue("@password", password);
+            var reader = cmd.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                reader.Read();
+                var idUsuario = reader.GetInt16("idUsuario");
+                var hashPwd = reader.GetString("UsuarioPassword");
+                var intentos = reader.GetInt16("UsuarioIntentosLoginFallido") + 1;
+                reader.Close();
+
+                if (hashPwd == password)
+                {
+                    //Actualizo la cantidad de intentos fallidos a cero
+                    cmd.CommandText = "UPDATE usuario SET UsuarioIntentosLoginFallido = 0 WHERE idUsuario = @idUsuario";
+                    cmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    cmd.ExecuteNonQuery();
+                } else {
+                    //Password incorrecto, actualizo la cantidad de intentos
+                    var updateIntentosCmd = conn.CreateCommand();
+                    updateIntentosCmd.CommandText = "UPDATE usuario SET UsuarioIntentosLoginFallido = @intentos WHERE idUsuario = @idUsuario";
+                    updateIntentosCmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                    updateIntentosCmd.Parameters.AddWithValue("@intentos", intentos);
+                    updateIntentosCmd.ExecuteNonQuery();
+
+                    if (intentos >= 3)
+                    {
+                        //Bloqueo la cuenta
+                        var blockUserCmd = conn.CreateCommand();
+                        blockUserCmd.CommandText = "UPDATE usuario SET UsuarioCuentaBloqueada = true WHERE idUsuario = @idUsuario";
+                        blockUserCmd.Parameters.AddWithValue("@idUsuario", idUsuario);
+                        blockUserCmd.ExecuteNonQuery();
+                        Close();
+                        throw new TooManyAttempsException();
+                    }
+
+                    Close();
+                    throw new LoginException();
+                }
+            } else {
+                // Usuario incorrecto
+                Close();
+                throw new LoginException();
+            }
+            reader.Close();
+            Close();
         }
     }
+
+    public class LoginException: System.Exception { }
+
+    public class TooManyAttempsException: System.Exception { }
 }
