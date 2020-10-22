@@ -34,7 +34,12 @@ namespace SolucionMaquinariasGAQ
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                labelError.Text = (ex.Message) switch
+                {
+                    "LoginException" => "Ususrio y/o contraseña incorrectos",
+                    "TooManyAttempsException" => "Demasiados intentos fallidos. La cuenta ha sido bloqueada",
+                    _ => "Ha ocurrido un error. Por favor vuelva a intentarlo",
+                };
             }
         }
     }

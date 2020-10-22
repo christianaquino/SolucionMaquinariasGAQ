@@ -10,8 +10,21 @@ namespace CapaNegocio
     {
         public void Login(String user, String password) {
             BD database = new CapaDatos.BD();
+            try{
+                database.Login(user, password);
+            } catch (LoginException)
+            {
+                throw new Exception("LoginException");
+            }
+            catch (TooManyAttempsException)
+            {
+                throw new Exception("TooManyAttempsException");
+            }
+            catch(Exception)
+            {
+                throw new Exception("GeneralsError");
+            }
             
-            database.Login(user, password);
             
         }
         

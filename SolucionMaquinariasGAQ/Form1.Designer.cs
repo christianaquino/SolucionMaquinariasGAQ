@@ -85,16 +85,14 @@
             this.labelError.ForeColor = System.Drawing.Color.Red;
             this.labelError.Location = new System.Drawing.Point(86, 127);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(180, 15);
+            this.labelError.Size = new System.Drawing.Size(0, 15);
             this.labelError.TabIndex = 4;
-            this.labelError.Text = "Usuario o contraseña incorrectos";
-            this.labelError.Visible = false;
             // 
             // FormLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(300, 214);
+            this.ClientSize = new System.Drawing.Size(357, 251);
             this.Controls.Add(this.labelError);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.textBoxUsuario);
