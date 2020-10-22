@@ -26,7 +26,6 @@ namespace SolucionMaquinariasGAQ
 
         private void button1_Click(object sender, EventArgs e)
         {
-
             try
             {
                 negocio.Login(textBoxUsuario.Text, textBoxPassword.Text);
@@ -37,10 +36,25 @@ namespace SolucionMaquinariasGAQ
                 labelError.Text = (ex.Message) switch
                 {
                     "LoginException" => "Ususrio y/o contraseña incorrectos",
-                    "TooManyAttempsException" => "Demasiados intentos fallidos. La cuenta ha sido bloqueada",
+                    "TooManyAttemptsException" => "Demasiados intentos fallidos. La cuenta ha sido bloqueada",
                     _ => "Ha ocurrido un error. Por favor vuelva a intentarlo",
                 };
             }
+        }
+
+        private void updateButton()
+        {
+            buttonLogin.Enabled = !string.IsNullOrEmpty(textBoxUsuario.Text) && !string.IsNullOrEmpty(textBoxPassword.Text);
+        }
+
+        private void textBoxUsuario_TextChanged(object sender, EventArgs e)
+        {
+            updateButton();
+        }
+
+        private void textBoxPassword_TextChanged(object sender, EventArgs e)
+        {
+            updateButton();
         }
     }
 }

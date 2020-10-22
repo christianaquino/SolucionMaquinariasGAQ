@@ -16,16 +16,14 @@ namespace CapaNegocio
             {
                 throw new Exception("LoginException");
             }
-            catch (TooManyAttempsException)
+            catch (TooManyAttemptsException)
             {
-                throw new Exception("TooManyAttempsException");
+                throw new Exception("TooManyAttemptsException");
             }
             catch(Exception)
             {
-                throw new Exception("GeneralsError");
+                throw new Exception("GeneralError");
             }
-            
-            
         }
         
     }

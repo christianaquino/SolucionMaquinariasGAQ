@@ -64,7 +64,7 @@ namespace CapaDatos
                         blockUserCmd.Parameters.AddWithValue("@idUsuario", idUsuario);
                         blockUserCmd.ExecuteNonQuery();
                         Close();
-                        throw new TooManyAttempsException();
+                        throw new TooManyAttemptsException();
                     }
 
                     Close();
@@ -82,5 +82,5 @@ namespace CapaDatos
 
     public class LoginException: System.Exception { }
 
-    public class TooManyAttempsException: System.Exception { }
+    public class TooManyAttemptsException: System.Exception { }
 }

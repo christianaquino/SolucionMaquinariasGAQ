@@ -38,7 +38,8 @@
             // 
             // buttonLogin
             // 
-            this.buttonLogin.Location = new System.Drawing.Point(152, 177);
+            this.buttonLogin.Enabled = false;
+            this.buttonLogin.Location = new System.Drawing.Point(152, 176);
             this.buttonLogin.Name = "buttonLogin";
             this.buttonLogin.Size = new System.Drawing.Size(117, 29);
             this.buttonLogin.TabIndex = 3;
@@ -70,23 +71,27 @@
             this.textBoxUsuario.Name = "textBoxUsuario";
             this.textBoxUsuario.Size = new System.Drawing.Size(142, 23);
             this.textBoxUsuario.TabIndex = 1;
+            this.textBoxUsuario.TextChanged += new System.EventHandler(this.textBoxUsuario_TextChanged);
             // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(152, 94);
+            this.textBoxPassword.Location = new System.Drawing.Point(153, 95);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(142, 23);
             this.textBoxPassword.TabIndex = 2;
             this.textBoxPassword.UseSystemPasswordChar = true;
+            this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
             // 
             // labelError
             // 
             this.labelError.AutoSize = true;
             this.labelError.ForeColor = System.Drawing.Color.Red;
-            this.labelError.Location = new System.Drawing.Point(129, 141);
+            this.labelError.Location = new System.Drawing.Point(63, 139);
+            this.labelError.MinimumSize = new System.Drawing.Size(300, 0);
             this.labelError.Name = "labelError";
-            this.labelError.Size = new System.Drawing.Size(0, 15);
+            this.labelError.Size = new System.Drawing.Size(300, 15);
             this.labelError.TabIndex = 4;
+            this.labelError.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // FormLogin
             // 
