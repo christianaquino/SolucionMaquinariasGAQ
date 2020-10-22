@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
@@ -8,7 +9,7 @@ namespace CapaDatos
 {
     public class BD
     {
-        static readonly string connstring = @"server=127.0.0.1;uid=root;pwd=******;database=maquinarias_gaq";
+        static readonly string connstring = @"server=127.0.0.1;uid=root;pwd=****;database=maquinarias_gaq";
         static readonly MySqlConnection conn = new MySqlConnection(connstring);
         private void Connect() {
             conn.Open();
@@ -18,13 +19,19 @@ namespace CapaDatos
             conn.Close();
         }
 
+        private string PasswordHash(string password)
+        {
+           return BitConverter.ToString(
+               SHA1CryptoServiceProvider.Create().ComputeHash(System.Text.ASCIIEncoding.ASCII.GetBytes(password))
+               ).Replace("-", "").ToLower();
+        }
+
         public void Login(String user, String password)
         {
             Connect();
             var cmd = conn.CreateCommand();
             cmd.CommandText = "SELECT * FROM usuario WHERE UsuarioNombre=@user AND NOT UsuarioCuentaBloqueada";
             cmd.Parameters.AddWithValue("@user", user);
-            cmd.Parameters.AddWithValue("@password", password);
             var reader = cmd.ExecuteReader();
 
             if (reader.HasRows)
@@ -34,8 +41,8 @@ namespace CapaDatos
                 var hashPwd = reader.GetString("UsuarioPassword");
                 var intentos = reader.GetInt16("UsuarioIntentosLoginFallido") + 1;
                 reader.Close();
-
-                if (hashPwd == password)
+                
+                if (hashPwd == PasswordHash(password))
                 {
                     //Actualizo la cantidad de intentos fallidos a cero
                     cmd.CommandText = "UPDATE usuario SET UsuarioIntentosLoginFallido = 0 WHERE idUsuario = @idUsuario";
